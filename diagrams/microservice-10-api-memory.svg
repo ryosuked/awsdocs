@@ -1,0 +1,211 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="1320" height="1850" viewBox="0 0 1320 1850" role="img" aria-labelledby="title description">
+<title id="title">約 10 API のマイクロサービス</title>
+<desc id="description">Ubuntu Server 24.04 LTS ARM64 上の Rails、FastAPI、Go をそれぞれ30台で運用する代替構成。OSとエージェント、アプリ、負荷時追加メモリ、運用余裕、残容量、および共通のCPU時間と処理時間を仮定したreq/secの計算値を示す。実測値ではなく、言語間の性能差を示すものではない。</desc>
+<defs>
+  <marker id="arrow" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto-start-reverse"><path d="M 0 0 L 10 5 L 0 10 z" fill="#64748b"/></marker>
+</defs>
+<style>
+  text { font-family: "Hiragino Sans", "Noto Sans CJK JP", "Yu Gothic", sans-serif; fill: #172033; }
+  .muted { fill: #526175; }
+  .caption { font-size: 15px; }
+  .label { font-size: 16px; }
+  .number { font-size: 17px; font-weight: 600; font-variant-numeric: tabular-nums; }
+  .edge { fill: none; stroke: #64748b; stroke-width: 2; marker-end: url(#arrow); }
+</style>
+<rect width="1320" height="1850" fill="#f3f6fa"/>
+
+<text x="40" y="54" font-size="28" font-weight="700">約 10 API のマイクロサービス</text>
+<text x="40" y="88" font-size="16" class="muted">1 サービスに約 10 エンドポイント / JSON・CRUD・短い DB 問い合わせ / 各言語で 30 台の構成例</text>
+<rect x="1050" y="27" width="230" height="36" fill="#fff1d6" rx="18"/>
+<text x="1165" y="51" font-size="14" font-weight="600" text-anchor="middle" style="fill: #8a4b00">試算値・実測ではありません</text>
+<rect x="32" y="118" width="1256" height="182" fill="#ffffff" rx="16" stroke="#dbe3ed"/>
+<rect x="60" y="158" width="160" height="94" fill="#edf4ff" rx="12" stroke="#b8cdf7"/>
+<text x="140" y="192" font-size="22" font-weight="700" text-anchor="middle">ALB</text>
+<text x="140" y="222" font-size="15" class="muted" text-anchor="middle">TLS 終端</text>
+<path class="edge" d="M 220 205 H 298"/>
+<rect x="300" y="139" width="650" height="140" fill="#f8fafc" rx="12" stroke="#cbd5e1"/>
+<text x="325" y="170" font-size="21" font-weight="700">t4g.micro × 30 台</text>
+<text x="325" y="197" font-size="16">1 台 1 GiB / 合計 30 GiB / EC2 本体 236.52 USD・月</text>
+<text x="325" y="225" font-size="15">Ubuntu Server 24.04 LTS ARM64 / systemd で直接起動</text>
+<text x="325" y="252" font-size="15" class="muted">SSM Agent + CloudWatch Agent / アプリ構成は下記から選択</text>
+<path class="edge" d="M 950 205 H 995 V 166 H 1048"/>
+<path class="edge" d="M 950 205 H 995 V 248 H 1048"/>
+<rect x="1050" y="136" width="205" height="60" fill="#f1f5f9" rx="10" stroke="#cbd5e1"/>
+<text x="1152" y="161" font-size="16" font-weight="600" text-anchor="middle">RDS / PostgreSQL</text>
+<text x="1152" y="183" font-size="13" class="muted" text-anchor="middle">DB は別ホスト</text>
+<rect x="1050" y="218" width="205" height="60" fill="#f1f5f9" rx="10" stroke="#cbd5e1"/>
+<text x="1152" y="243" font-size="15" font-weight="600" text-anchor="middle">S3 / 静的ファイル配信</text>
+<text x="1152" y="265" font-size="13" class="muted" text-anchor="middle">ファイルは外部へ</text>
+<text x="40" y="343" font-size="22" font-weight="700">1 台あたりのメモリと想定 req/sec</text>
+<text x="1278" y="343" font-size="14" class="muted" text-anchor="end">3 言語は代替構成です。同時に全部を起動しません。</text>
+<rect x="44" y="367" width="14" height="14" fill="#2563eb" rx="3"/>
+<text x="67" y="380" font-size="15">ホスト常駐分(OS)</text>
+<rect x="294" y="367" width="14" height="14" fill="#047857" rx="3"/>
+<text x="317" y="380" font-size="15">アプリ常駐分(無負荷時ベース)</text>
+<rect x="544" y="367" width="14" height="14" fill="#c2410c" rx="3"/>
+<text x="567" y="380" font-size="15">負荷時の追加分</text>
+<rect x="794" y="367" width="14" height="14" fill="#7c3aed" rx="3"/>
+<text x="817" y="380" font-size="15">運用余裕</text>
+<rect x="1044" y="367" width="14" height="14" fill="#64748b" rx="3"/>
+<text x="1067" y="380" font-size="15">残容量</text>
+<rect x="32" y="410" width="404" height="890" fill="#ffffff" rx="16" stroke="#dbe3ed"/>
+<rect x="56" y="433" width="5" height="25" fill="#047857" rx="2"/>
+<text x="72" y="454" font-size="23" font-weight="700">Rails</text>
+<text x="56" y="487" font-size="14" class="muted">Ruby 3.4 系 / Rails 8.1 系・API-only</text>
+<text x="56" y="513" font-size="14" class="muted">Puma single mode / 3 スレッド / DB pool 5</text>
+<rect x="56" y="542" width="11" height="11" fill="#2563eb" rx="2"/>
+<text x="77" y="554" font-size="15">ホスト常駐分(OS)</text>
+<text x="412" y="554" font-size="17" font-weight="600" text-anchor="end">256 MiB</text>
+<rect x="56" y="585" width="11" height="11" fill="#047857" rx="2"/>
+<text x="77" y="597" font-size="15">アプリ常駐分(無負荷時ベース)</text>
+<text x="412" y="597" font-size="17" font-weight="600" text-anchor="end">256 MiB</text>
+<rect x="56" y="628" width="11" height="11" fill="#c2410c" rx="2"/>
+<text x="77" y="640" font-size="15">負荷時の追加メモリ</text>
+<text x="412" y="640" font-size="17" font-weight="600" text-anchor="end">128 MiB</text>
+<rect x="56" y="671" width="11" height="11" fill="#7c3aed" rx="2"/>
+<text x="77" y="683" font-size="15">運用余裕</text>
+<text x="412" y="683" font-size="17" font-weight="600" text-anchor="end">256 MiB</text>
+<rect x="56" y="714" width="11" height="11" fill="#64748b" rx="2"/>
+<text x="77" y="726" font-size="15">残容量</text>
+<text x="412" y="726" font-size="17" font-weight="600" text-anchor="end">128 MiB</text>
+<text x="56" y="763" font-size="14" class="muted">メモリ全体：1,024 MiB</text>
+<rect x="56" y="778" width="89.0" height="26" fill="#2563eb" rx="0"/>
+<rect x="145.0" y="778" width="89.0" height="26" fill="#047857" rx="0"/>
+<rect x="234.0" y="778" width="44.5" height="26" fill="#c2410c" rx="0"/>
+<rect x="278.5" y="778" width="89.0" height="26" fill="#7c3aed" rx="0"/>
+<rect x="367.5" y="778" width="44.5" height="26" fill="#64748b" rx="0"/>
+<text x="56" y="833" font-size="14" class="muted">負荷と運用余裕を含む必要量</text>
+<text x="56" y="869" font-size="30" font-weight="700">896 MiB</text>
+<text x="56" y="909" font-size="14" class="muted">30 台の無負荷時常駐分</text>
+<text x="412" y="909" font-size="17" font-weight="600" text-anchor="end">15.00 GiB</text>
+<text x="56" y="940" font-size="14" class="muted">30 台の必要量合計</text>
+<text x="412" y="940" font-size="17" font-weight="600" text-anchor="end">26.25 GiB</text>
+<path d="M 56 963 H 412" stroke="#dbe3ed"/>
+<text x="56" y="994" font-size="16" font-weight="600" style="fill: #1d4ed8">想定 req/sec（条件付き試算）</text>
+<text x="56" y="1036" font-size="28" font-weight="700">15 req/sec / 台</text>
+<text x="56" y="1070" font-size="16" class="muted">30 台合計</text>
+<text x="412" y="1070" font-size="22" font-weight="700" text-anchor="end">450 req/sec</text>
+<text x="56" y="1103" font-size="14" class="muted">1 件の CPU：5 ms / 平均処理：200 ms</text>
+<text x="56" y="1130" font-size="14" class="muted">CPU 予算：0.12 vCPU / 同時処理：3 件</text>
+<text x="56" y="1157" font-size="14" class="muted">DB 接続：5 / 1 件の接続占有：50 ms</text>
+<text x="56" y="1184" font-size="14">CPU で決まる目安</text>
+<text x="412" y="1184" font-size="16" font-weight="600" text-anchor="end">24 req/sec</text>
+<text x="56" y="1211" font-size="14">同時処理で決まる目安</text>
+<text x="412" y="1211" font-size="16" font-weight="600" text-anchor="end">15 req/sec</text>
+<text x="56" y="1238" font-size="14">DB 接続で決まる目安</text>
+<text x="412" y="1238" font-size="16" font-weight="600" text-anchor="end">100 req/sec</text>
+<rect x="56" y="1257" width="356" height="28" fill="#edf4ff" rx="7"/>
+<text x="234" y="1276" font-size="13" class="muted" text-anchor="middle">3 つの目安の最小値 / アプリは 1 プロセス</text>
+<rect x="458" y="410" width="404" height="890" fill="#ffffff" rx="16" stroke="#dbe3ed"/>
+<rect x="482" y="433" width="5" height="25" fill="#047857" rx="2"/>
+<text x="498" y="454" font-size="23" font-weight="700">FastAPI</text>
+<text x="482" y="487" font-size="14" class="muted">Python 3.12 系 / FastAPI + Uvicorn</text>
+<text x="482" y="513" font-size="14" class="muted">1 ワーカー / 非同期 DB / DB pool 5</text>
+<rect x="482" y="542" width="11" height="11" fill="#2563eb" rx="2"/>
+<text x="503" y="554" font-size="15">ホスト常駐分(OS)</text>
+<text x="838" y="554" font-size="17" font-weight="600" text-anchor="end">256 MiB</text>
+<rect x="482" y="585" width="11" height="11" fill="#047857" rx="2"/>
+<text x="503" y="597" font-size="15">アプリ常駐分(無負荷時ベース)</text>
+<text x="838" y="597" font-size="17" font-weight="600" text-anchor="end">128 MiB</text>
+<rect x="482" y="628" width="11" height="11" fill="#c2410c" rx="2"/>
+<text x="503" y="640" font-size="15">負荷時の追加メモリ</text>
+<text x="838" y="640" font-size="17" font-weight="600" text-anchor="end">128 MiB</text>
+<rect x="482" y="671" width="11" height="11" fill="#7c3aed" rx="2"/>
+<text x="503" y="683" font-size="15">運用余裕</text>
+<text x="838" y="683" font-size="17" font-weight="600" text-anchor="end">256 MiB</text>
+<rect x="482" y="714" width="11" height="11" fill="#64748b" rx="2"/>
+<text x="503" y="726" font-size="15">残容量</text>
+<text x="838" y="726" font-size="17" font-weight="600" text-anchor="end">256 MiB</text>
+<text x="482" y="763" font-size="14" class="muted">メモリ全体：1,024 MiB</text>
+<rect x="482" y="778" width="89.0" height="26" fill="#2563eb" rx="0"/>
+<rect x="571.0" y="778" width="44.5" height="26" fill="#047857" rx="0"/>
+<rect x="615.5" y="778" width="44.5" height="26" fill="#c2410c" rx="0"/>
+<rect x="660.0" y="778" width="89.0" height="26" fill="#7c3aed" rx="0"/>
+<rect x="749.0" y="778" width="89.0" height="26" fill="#64748b" rx="0"/>
+<text x="482" y="833" font-size="14" class="muted">負荷と運用余裕を含む必要量</text>
+<text x="482" y="869" font-size="30" font-weight="700">768 MiB</text>
+<text x="482" y="909" font-size="14" class="muted">30 台の無負荷時常駐分</text>
+<text x="838" y="909" font-size="17" font-weight="600" text-anchor="end">11.25 GiB</text>
+<text x="482" y="940" font-size="14" class="muted">30 台の必要量合計</text>
+<text x="838" y="940" font-size="17" font-weight="600" text-anchor="end">22.50 GiB</text>
+<path d="M 482 963 H 838" stroke="#dbe3ed"/>
+<text x="482" y="994" font-size="16" font-weight="600" style="fill: #1d4ed8">想定 req/sec（条件付き試算）</text>
+<text x="482" y="1036" font-size="28" font-weight="700">24 req/sec / 台</text>
+<text x="482" y="1070" font-size="16" class="muted">30 台合計</text>
+<text x="838" y="1070" font-size="22" font-weight="700" text-anchor="end">720 req/sec</text>
+<text x="482" y="1103" font-size="14" class="muted">1 件の CPU：5 ms / 平均処理：200 ms</text>
+<text x="482" y="1130" font-size="14" class="muted">CPU 予算：0.12 vCPU / 同時処理：32 件</text>
+<text x="482" y="1157" font-size="14" class="muted">DB 接続：5 / 1 件の接続占有：50 ms</text>
+<text x="482" y="1184" font-size="14">CPU で決まる目安</text>
+<text x="838" y="1184" font-size="16" font-weight="600" text-anchor="end">24 req/sec</text>
+<text x="482" y="1211" font-size="14">同時処理で決まる目安</text>
+<text x="838" y="1211" font-size="16" font-weight="600" text-anchor="end">160 req/sec</text>
+<text x="482" y="1238" font-size="14">DB 接続で決まる目安</text>
+<text x="838" y="1238" font-size="16" font-weight="600" text-anchor="end">100 req/sec</text>
+<rect x="482" y="1257" width="356" height="28" fill="#edf4ff" rx="7"/>
+<text x="660" y="1276" font-size="13" class="muted" text-anchor="middle">3 つの目安の最小値 / アプリは 1 プロセス</text>
+<rect x="884" y="410" width="404" height="890" fill="#ffffff" rx="16" stroke="#dbe3ed"/>
+<rect x="908" y="433" width="5" height="25" fill="#047857" rx="2"/>
+<text x="924" y="454" font-size="23" font-weight="700">Go</text>
+<text x="908" y="487" font-size="14" class="muted">net/http / database/sql</text>
+<text x="908" y="513" font-size="14" class="muted">1 プロセス / DB 最大接続数 5</text>
+<rect x="908" y="542" width="11" height="11" fill="#2563eb" rx="2"/>
+<text x="929" y="554" font-size="15">ホスト常駐分(OS)</text>
+<text x="1264" y="554" font-size="17" font-weight="600" text-anchor="end">256 MiB</text>
+<rect x="908" y="585" width="11" height="11" fill="#047857" rx="2"/>
+<text x="929" y="597" font-size="15">アプリ常駐分(無負荷時ベース)</text>
+<text x="1264" y="597" font-size="17" font-weight="600" text-anchor="end">64 MiB</text>
+<rect x="908" y="628" width="11" height="11" fill="#c2410c" rx="2"/>
+<text x="929" y="640" font-size="15">負荷時の追加メモリ</text>
+<text x="1264" y="640" font-size="17" font-weight="600" text-anchor="end">128 MiB</text>
+<rect x="908" y="671" width="11" height="11" fill="#7c3aed" rx="2"/>
+<text x="929" y="683" font-size="15">運用余裕</text>
+<text x="1264" y="683" font-size="17" font-weight="600" text-anchor="end">256 MiB</text>
+<rect x="908" y="714" width="11" height="11" fill="#64748b" rx="2"/>
+<text x="929" y="726" font-size="15">残容量</text>
+<text x="1264" y="726" font-size="17" font-weight="600" text-anchor="end">320 MiB</text>
+<text x="908" y="763" font-size="14" class="muted">メモリ全体：1,024 MiB</text>
+<rect x="908" y="778" width="89.0" height="26" fill="#2563eb" rx="0"/>
+<rect x="997.0" y="778" width="22.25" height="26" fill="#047857" rx="0"/>
+<rect x="1019.25" y="778" width="44.5" height="26" fill="#c2410c" rx="0"/>
+<rect x="1063.75" y="778" width="89.0" height="26" fill="#7c3aed" rx="0"/>
+<rect x="1152.75" y="778" width="111.25" height="26" fill="#64748b" rx="0"/>
+<text x="908" y="833" font-size="14" class="muted">負荷と運用余裕を含む必要量</text>
+<text x="908" y="869" font-size="30" font-weight="700">704 MiB</text>
+<text x="908" y="909" font-size="14" class="muted">30 台の無負荷時常駐分</text>
+<text x="1264" y="909" font-size="17" font-weight="600" text-anchor="end">9.38 GiB</text>
+<text x="908" y="940" font-size="14" class="muted">30 台の必要量合計</text>
+<text x="1264" y="940" font-size="17" font-weight="600" text-anchor="end">20.63 GiB</text>
+<path d="M 908 963 H 1264" stroke="#dbe3ed"/>
+<text x="908" y="994" font-size="16" font-weight="600" style="fill: #1d4ed8">想定 req/sec（条件付き試算）</text>
+<text x="908" y="1036" font-size="28" font-weight="700">24 req/sec / 台</text>
+<text x="908" y="1070" font-size="16" class="muted">30 台合計</text>
+<text x="1264" y="1070" font-size="22" font-weight="700" text-anchor="end">720 req/sec</text>
+<text x="908" y="1103" font-size="14" class="muted">1 件の CPU：5 ms / 平均処理：200 ms</text>
+<text x="908" y="1130" font-size="14" class="muted">CPU 予算：0.12 vCPU / 同時処理：32 件</text>
+<text x="908" y="1157" font-size="14" class="muted">DB 接続：5 / 1 件の接続占有：50 ms</text>
+<text x="908" y="1184" font-size="14">CPU で決まる目安</text>
+<text x="1264" y="1184" font-size="16" font-weight="600" text-anchor="end">24 req/sec</text>
+<text x="908" y="1211" font-size="14">同時処理で決まる目安</text>
+<text x="1264" y="1211" font-size="16" font-weight="600" text-anchor="end">160 req/sec</text>
+<text x="908" y="1238" font-size="14">DB 接続で決まる目安</text>
+<text x="1264" y="1238" font-size="16" font-weight="600" text-anchor="end">100 req/sec</text>
+<rect x="908" y="1257" width="356" height="28" fill="#edf4ff" rx="7"/>
+<text x="1086" y="1276" font-size="13" class="muted" text-anchor="middle">3 つの目安の最小値 / アプリは 1 プロセス</text>
+<rect x="32" y="1320" width="1256" height="200" fill="#ffffff" rx="16" stroke="#dbe3ed"/>
+<text x="52" y="1347" font-size="17" font-weight="700">req/sec の計算条件 — メモリ容量から処理件数を換算した値ではありません</text>
+<text x="52" y="1377" font-size="15">1 台の req/sec ≈ min(CPU 予算 ÷ 1 件の CPU 時間, 同時処理数 ÷ 平均処理時間, DB 接続数 ÷ 接続占有時間)</text>
+<text x="52" y="1406" font-size="14" class="muted">CPU 予算：t4g.micro のベースライン 0.2 vCPU の 60% = 0.12 vCPU。残りはホスト処理と余力。バーストは含みません。</text>
+<text x="52" y="1435" font-size="14" class="muted">CPU 時間・平均処理時間・DB 接続占有時間は 3 言語で共通の仮定。言語固有の性能差・実測順位は示しません。</text>
+<text x="52" y="1464" font-size="14" class="muted">平均処理時間は CPU と I/O 待ちを含む仮値。DB 接続は 1 件につき 1 本。p95 / p99・エラー率・メモリ上限は未検証です。</text>
+<text x="52" y="1493" font-size="14" class="muted">30 台は均等分散し、DB 本体・ALB・外部 API に余力がある仮定。障害時の余力は未控除。スレッド数を変えると結果も変わります。</text>
+<text x="40" y="1548" font-size="15" class="muted">メモリの前提：ホスト 256 MiB、運用余裕 256 MiB。アプリ常駐分(無負荷時ベース)と負荷時追加分も比較用の仮定です。</text>
+<text x="40" y="1577" font-size="15" class="muted">残容量は運用余裕まで差し引いた値。各アプリは 1 プロセスで、管理親プロセスの追加分はありません。</text>
+<text x="40" y="1606" font-size="15" class="muted">t4g.micro の CPU ベースラインは 1 台 0.2 vCPU 相当。メモリが収まっても、CPU と応答時間は別途検証します。</text>
+<text x="40" y="1642" font-size="14" class="muted">料金：東京・Linux・オンデマンド・730 時間 / 2026-11-07 の価格データ。EC2 本体以外は含みません。</text>
+<rect x="32" y="1672" width="1256" height="158" fill="#edf4ff" rx="16" stroke="#c6d8f7"/>
+<text x="52" y="1703" font-size="17" font-weight="700">補足：公開事例を踏まえた設計上の推論</text>
+<text x="52" y="1736" font-size="15" class="muted">・Rails：I/O 待ちが多い場合は 3 スレッド固定にせず、5・8 スレッドも比較し、メモリと DB 接続への影響を確認する。</text>
+<text x="52" y="1766" font-size="15" class="muted">・小規模 API：少数プロセスから始め、同時処理数は CPU・メモリ・DB 接続待ち・応答時間を見て調整する。</text>
+<text x="52" y="1796" font-size="15" class="muted">・req/sec：図の値は設定条件による計算例。一般的な実績値や、Rails・FastAPI・Go の性能倍率とはみなさない。</text>
+</svg>
